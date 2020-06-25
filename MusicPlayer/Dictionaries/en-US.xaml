@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Songs">Songs</system:String>
+    <system:String x:Key="Artists">Artists</system:String>
+    <system:String x:Key="Albums">Albums</system:String>
+    <system:String x:Key="Genres">Genres</system:String>
+    <system:String x:Key="Liked">Liked</system:String>
+    
+    <system:String x:Key="GoBack">Go Back</system:String>
+    <system:String x:Key="ShutDown">Close</system:String>
+    <system:String x:Key="Resize">Resize</system:String>
+    <system:String x:Key="Hide">Hide</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    
+    
+    <system:String x:Key="SortOrder">Sort Order</system:String>
+    <system:String x:Key="Ascending">Ascending</system:String>
+    <system:String x:Key="Descending">Descending</system:String>
+    <system:String x:Key="Layout">Layout</system:String>
+    <system:String x:Key="SmallItems">Small Items</system:String>
+    <system:String x:Key="NormalItems">Normal Items</system:String>
+    <system:String x:Key="LargeItems">Large Items</system:String>
+    <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="Theme">Theme</system:String>
+    <system:String x:Key="Dark">Dark Theme</system:String>
+    <system:String x:Key="Light">Light Theme</system:String>
+    
+    <system:String x:Key="Previous">Previous Song</system:String>
+    <system:String x:Key="Next">Next Song</system:String>
+    <system:String x:Key="Play">Play/Pause</system:String>
+
+    <system:String x:Key="ScanDirectory">Scan Directory</system:String>
+    <system:String x:Key="AddFile">Add File</system:String>
+    
+    <system:String x:Key="Edit">Edit</system:String>
+    <system:String x:Key="Remove">Remove</system:String>
+    <system:String x:Key="Like">Like</system:String>
+    
+    <system:String x:Key="Title">Title</system:String>
+    <system:String x:Key="Year">Year</system:String>
+</ResourceDictionary>

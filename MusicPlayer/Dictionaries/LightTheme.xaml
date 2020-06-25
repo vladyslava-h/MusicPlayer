@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="GradientBg" >
+        <Setter Property="Control.Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.7">
+                    <GradientStop Color="#34c6ff" Offset="0.0" />
+                    <GradientStop Color="#5726be" Offset="0.5" />
+                    <GradientStop Color="#e21c8b" Offset="1.0" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MainColorBg">
+        <Setter Property="Control.Background" Value="White"/>
+    </Style>
+    <Style x:Key="MainColorFg">
+        <Setter Property="Control.Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="GradientBgButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
+        <Setter Property="Button.Foreground" Value="White"/>
+        <Setter Property="Button.Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.7">
+                    <GradientStop Color="#34c6ff" Offset="0.0" />
+                    <GradientStop Color="#5726be" Offset="0.5" />
+                    <GradientStop Color="#e21c8b" Offset="1.0" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GradientBgButton2" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Button.Foreground" Value="Black"/>
+        <Setter Property="Button.BorderBrush" Value="#5726be"/>
+        <Setter Property="Button.Background" Value="#5726be"/>
+    </Style>
+
+    <Style x:Key="PastelBgButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
+        <Setter Property="Button.Foreground" Value="White"/>
+        <Setter Property="Button.Background" Value="#8967d1"/>
+    </Style>
+
+    <Style x:Key="AudioSlider" TargetType="Slider" BasedOn="{StaticResource MaterialDesignDiscreteSlider}">
+        <Setter Property="Foreground" Value="#5726be"/>
+    </Style>
+
+    <Style x:Key="RadioButton" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+        <Setter Property="Background" Value="#5726be"/>
+    </Style>
+
+    <Style x:Key="PopUpBox" TargetType="materialDesign:PopupBox" BasedOn="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
+        <Setter Property="Background" Value="#5726be"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="MenuStyle" TargetType="Menu" BasedOn="{StaticResource MaterialDesignMenu}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style x:Key="FloatingHintTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+
+    </Style>
+
+</ResourceDictionary>

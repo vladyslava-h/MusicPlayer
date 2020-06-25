@@ -1,0 +1,348 @@
+﻿<Window x:Class="MusicPlayer.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicPlayer"
+        xmlns:converter="clr-namespace:MusicPlayer.Infrastructure"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        fw:AcrylicWindow.Enabled="True" Background="Transparent"
+        fw:AcrylicWindow.TintOpacity="0"
+        fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
+        fw:AcrylicWindow.AcrylicWindowStyle="None"
+        BorderBrush="{x:Null}"
+        Title="Music Player" Height="650" Width="1010" WindowStartupLocation="CenterScreen" Icon="/MusicPlayer;component/Images/icon.png">
+
+    <Window.DataContext>
+        <local:ServiceLocator/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <converter:RadioBoolToIntConverter x:Key="radioBoolToIntConverter"/>
+    </Window.Resources>
+
+    <Grid DataContext="{Binding MainViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid  Grid.Column="0" Style="{DynamicResource GradientBg}"/>
+        <Grid Grid.Column="1" Name="SecondColumn" Style="{DynamicResource MainColorBg}"/>
+
+
+        <!--Content Slider-->
+        <Grid Width="10" Height="40"
+                   Style="{DynamicResource MainColorBg}"
+                   Margin="{Binding ContentSliderMargin}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"/>
+
+        <!--Menu Items-->
+        <ListView VerticalAlignment="Center" SelectedIndex="{Binding SelectedMenuItem}">
+            <ListViewItem Height="40">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="MusicNote" Style="{DynamicResource MainColorFg}" Width="20" Height="20" />
+                    <TextBlock Text="{DynamicResource Songs}"  Style="{DynamicResource MainColorFg}"
+                               FontSize="15" Margin="10 1 0 0"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="40">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="Artist" Style="{DynamicResource MainColorFg}" Width="20" Height="20" />
+                    <TextBlock Text="{DynamicResource Artists}" Style="{DynamicResource MainColorFg}"
+                               FontSize="15" Margin="10 1 0 0" />
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="40" IsSelected="True">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="Album" Style="{DynamicResource MainColorFg}" Width="20" Height="20" />
+                    <TextBlock Text="{DynamicResource Albums}" Style="{DynamicResource MainColorFg}"
+                               FontSize="15" Margin="10 1 0 0"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="40">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="Piano" Style="{DynamicResource MainColorFg}" Width="20" Height="20" />
+                    <TextBlock Text="{DynamicResource Genres}" Style="{DynamicResource MainColorFg}"
+                               FontSize="15" Margin="10 1 0 0"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="40">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="CardsHeart" Style="{DynamicResource MainColorFg}" Width="20" Height="20" />
+                    <TextBlock Text="{DynamicResource Liked}" Style="{DynamicResource MainColorFg}"
+                               FontSize="15" Margin="10 1 0 0"/>
+                </StackPanel>
+            </ListViewItem>
+        </ListView>
+
+
+        <DockPanel LastChildFill="True" Grid.Column="1">
+            <!--Task bar-->
+            <DockPanel LastChildFill="False"
+                       Height="65"
+                       DockPanel.Dock="Top">
+
+                <!--GO BACK-->
+                <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        Command="{Binding GoBackCommand}"
+                        CommandParameter="{Binding ElementName=MainFrame, Path=Content}"
+                        Margin="16 10 0 10"
+                        DockPanel.Dock="Left"
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
+                        Foreground ="Gray"
+                        VerticalAlignment="Center"
+                        Height="25" Width="25" 
+                        ToolTip="{DynamicResource GoBack}">
+                    <materialDesign:PackIcon Kind="KeyboardArrowLeft" Width="25" Height="25"/>
+                </Button>
+
+                <!--SETTINGS-->
+                <Menu IsMainMenu="True"
+                      VerticalAlignment="Center"
+                      Margin="0 8 16 10"
+                      Style="{DynamicResource MainColorBg}"
+                      DockPanel.Dock="Right">
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <materialDesign:PackIcon Kind="GearOutline" Foreground="Gray"
+                                                     Style="{DynamicResource MainColorBg}"
+                                 HorizontalAlignment="Right" Width="25" Height="25" />
+                        </MenuItem.Header>
+                        <MenuItem FontSize="13" Header="{DynamicResource SortOrder}">
+                            <RadioButton
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding SortOption, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=0 }"
+                                GroupName="Sort" Content="{DynamicResource Ascending}"/>
+                            <RadioButton 
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding SortOption, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=1}"
+                                GroupName="Sort" Content="{DynamicResource Descending}"/>
+                        </MenuItem>
+                        <MenuItem FontSize="13" Header="{DynamicResource Layout}">
+                            <RadioButton
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding LayoutSize, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=0 }"
+                                GroupName="LayoutSize" Content="{DynamicResource SmallItems}"/>
+                            <RadioButton
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding LayoutSize, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=1}"
+                                GroupName="LayoutSize" Content="{DynamicResource NormalItems}"/>
+                            <RadioButton
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding LayoutSize, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=2}"
+                                GroupName="LayoutSize" Content="{DynamicResource LargeItems}"/>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem FontSize="13" Header="{DynamicResource Language}">
+                            <RadioButton
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding Language, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=0}"
+                                GroupName="Lang" Content="English (US)"/>
+                            <RadioButton 
+                                Style="{DynamicResource RadioButton}"
+                                IsChecked="{Binding Language, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=1}"
+                                GroupName="Lang" Content="한국어"/>
+                        </MenuItem>
+                        <MenuItem FontSize="13" Header="{DynamicResource Theme}">
+                            <RadioButton
+                                IsChecked="{Binding ThemeIndex, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=0}"
+                                GroupName="ColorTheme" Content="{DynamicResource Light}"/>
+                            <RadioButton 
+                                IsChecked="{Binding ThemeIndex, Converter={StaticResource radioBoolToIntConverter}, ConverterParameter=1}"
+                                GroupName="ColorTheme" Content="{DynamicResource Dark}"/>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+
+            <!--Bottom--> 
+            <Grid DockPanel.Dock="Bottom" Panel.ZIndex="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="60*" ></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button
+                            Command="{Binding PreviousSongCommand}"
+                            DockPanel.Dock="Left"
+                            Margin="10"
+                            Width="22"
+                            Height="22"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip="{DynamicResource Previous}"
+                            Style="{DynamicResource GradientBgButton}">
+                        <materialDesign:PackIcon Kind="PreviousTitle" Height="17" Width="17"/>
+                    </Button>
+                    <Button
+                            Command="{Binding PlayCommand}"
+                            DockPanel.Dock="Left"
+                            Margin="10"
+                            Width="30"
+                            Height="30"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip="{DynamicResource Play}"
+                            Style="{DynamicResource GradientBgButton}">
+                        <materialDesign:PackIcon Kind="{Binding PlayButtonContent}" Height="25" Width="25"/>
+                    </Button>
+                    <Button
+                            Command="{Binding NextSongCommand}"
+                            DockPanel.Dock="Left"
+                            Margin="10"
+                            Width="22"
+                            Height="22"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            ToolTip="{DynamicResource Next}"
+                            Style="{DynamicResource GradientBgButton}">
+                        <materialDesign:PackIcon Kind="NextTitle" Height="17" Width="17"/>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" 
+                            Height="25"
+                            Margin="0 0 0 15"
+                            HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0 5 10 0"    
+                        FontSize="14"
+                        Foreground="Gray"
+                        FontFamily="Century Gothic"
+                        Text="{Binding PlayingSong.Song.Title}"
+                    />
+                    <TextBlock
+                        Margin="0 5 10 0"    
+                        FontSize="14"
+                        Foreground="LightGray"
+                        FontFamily="Century Gothic"
+                        Text="•"
+                    />
+                    <TextBlock
+                        Margin="0 5 0 0"
+                        FontFamily="Century Gothic"
+                        Foreground="Gray"
+                        FontSize="14"
+                        Text="{Binding PlayingSong.Artist.Name}"
+                    />
+                </StackPanel>
+
+                <Slider
+                       Style="{DynamicResource AudioSlider}"
+                       Grid.Column="1"
+                       Height="20"
+                       TickFrequency="1"
+                       Margin="0,20,0,10"
+                       Orientation="Horizontal"
+                       Minimum="1"
+                       Value="{Binding StatusSeconds, Mode=TwoWay}"
+                       Maximum="{Binding MaximumStatus}"/>
+
+                <TextBlock Grid.Column="2"
+                       DockPanel.Dock="Right"
+                       VerticalAlignment="Center"
+                       Foreground="Gray"
+                       FontSize="15"    
+                       Margin="15 0 20 0"
+                       HorizontalAlignment="Center"
+                       Text="{Binding Status}"
+                    />
+
+                 <!--Add Items-->
+                <materialDesign:PopupBox
+                    Grid.Column="2"
+                    Style="{DynamicResource PopUpBox}"
+                    PlacementMode="TopAndAlignCentres"
+                    UnfurlOrientation="Vertical"
+                    Margin="0 -90 25 70"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Vertical">
+                        <Button ToolTip="{DynamicResource ScanDirectory}" 
+                                ToolTipService.Placement="Left"
+                                Margin="0 0 0 5"
+                                Style="{DynamicResource PastelBgButton}"
+                                Command="{Binding ScanDirectoryCommand}">
+                            <materialDesign:PackIcon Kind="FolderSearch" Width="18" Height="18"/>
+                        </Button>
+                        <Button ToolTip="{DynamicResource AddFile}"
+                                Margin="0 0 0 5"
+                                ToolTipService.Placement="Left"
+                                Style="{DynamicResource PastelBgButton}"
+                                Command="{Binding AddFileCommand}">
+                            <materialDesign:PackIcon Kind="FileMusic" Width="18" Height="18"/>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+            </Grid>
+
+        <Rectangle DockPanel.Dock="Bottom" Height="1" Width="{Binding ElementName=SecondColumn, Path=ActualWidth}">
+            <Rectangle.Fill>
+                    <SolidColorBrush Color="LightGray"/>
+            </Rectangle.Fill>
+        </Rectangle>
+            
+            <Frame
+                Panel.ZIndex="1"
+                Content="{Binding ApplicationPageViewModel.CurrentPage, Source={x:Static local:ApplicationPageLocator.Instanse}}"
+                Opacity="{Binding FrameOpacity}"
+                x:Name ="MainFrame"
+                NavigationUIVisibility="Hidden"
+                />
+        </DockPanel>
+
+        <!--close and resize window-->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button
+                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                 Command="{Binding CloseWindowCommand}"
+                 Margin="8 10 5 0"
+                 Background="{x:Null}"
+                 BorderBrush="{x:Null}"
+                 Foreground ="LightGray"
+                 Height="15" Width="15" 
+                 ToolTip="{DynamicResource ShutDown}">
+                <materialDesign:PackIcon Kind="Power" Width="13" Height="13"/>
+            </Button>
+            <Button
+                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                 Command="{Binding ResizeWindowCommand}"
+                 Margin="5 10 5 0"
+                 Foreground ="LightGray"
+                 Background="{x:Null}"
+                 BorderBrush="{x:Null}"
+                 Height="15" Width="15" 
+                 ToolTip="{DynamicResource Resize}">
+                <materialDesign:PackIcon Kind="WindowMaximize" Width="13" Height="13"/>
+            </Button>
+            <Button
+                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                 Command="{Binding HideWindowCommand}"
+                 Margin="5 10 5 0"
+                 Foreground ="LightGray"
+                 Background="{x:Null}"
+                 BorderBrush="{x:Null}"
+                 Height="15" Width="15" 
+                 ToolTip="{DynamicResource Hide}">
+                <materialDesign:PackIcon Kind="WindowMinimize" Width="13" Height="13"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

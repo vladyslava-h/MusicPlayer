@@ -1,0 +1,97 @@
+﻿<Window x:Class="MusicPlayer.Views.EditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicPlayer.Views"
+        mc:Ignorable="d"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        fw:AcrylicWindow.Enabled="True"
+        fw:AcrylicWindow.TintOpacity="0"
+        fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
+        fw:AcrylicWindow.AcrylicWindowStyle="None"
+        BorderBrush="{x:Null}"
+        ResizeMode="NoResize"
+        Title="EditView" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/MusicPlayer;component/Images/icon.png">
+
+    <materialDesign:TransitioningContent
+             OpeningEffect="{materialDesign:TransitionEffect Kind = FadeIn, Duration=0:0:1.3}">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding BackgroundImage}"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*" Name="FirstColumn"></ColumnDefinition>
+                <ColumnDefinition Width="60*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button 
+                Command="{Binding ChangeImageCommand}"
+                Width="250" Height="250">
+                    <Button.Background>
+                        <ImageBrush ImageSource="{Binding Image, Mode=TwoWay}" Stretch="UniformToFill"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+
+            <DockPanel Grid.Column="1">
+                <Button
+                 DockPanel.Dock="Top"
+                 HorizontalAlignment="Right"
+                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                 Command="{Binding CancelCommand}"
+                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                 Margin="10"
+                 Background="{x:Null}"
+                 BorderBrush="{x:Null}"
+                 Foreground ="Gray"
+                 Height="17" Width="17" 
+                 ToolTip="{DynamicResource ShutDown}">
+                    <materialDesign:PackIcon Kind="WindowClose" Width="13" Height="13"/>
+                </Button>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <TextBox Width="200" FontSize="17" Margin="10"
+                         materialDesign:HintAssist.Hint="{DynamicResource Title}"
+                         Text="{Binding Song.Song.Title, Mode=TwoWay}"
+                         Style="{DynamicResource FloatingHintTextBox}" />
+
+                    <TextBox Width="200" FontSize="17" Margin="10"
+                             materialDesign:HintAssist.Hint="{DynamicResource Albums}"
+                             Text="{Binding Song.Album.Title, Mode=TwoWay}"
+                             Style="{DynamicResource FloatingHintTextBox}" />
+
+                    <TextBox Width="200" FontSize="17" Margin="10"
+                             materialDesign:HintAssist.Hint="{DynamicResource Artists}"
+                             Text="{Binding Song.Artist.Name, Mode=TwoWay}"
+                             Style="{DynamicResource FloatingHintTextBox}" />
+
+                    <TextBox Width="200" FontSize="17" Margin="10"
+                             materialDesign:HintAssist.Hint="{DynamicResource Genres}"
+                             Text="{Binding Song.Song.Genre, Mode=TwoWay}"
+                             Style="{DynamicResource FloatingHintTextBox}" />
+
+                    <TextBox Width="200" FontSize="17" Margin="10"
+                             materialDesign:HintAssist.Hint="{DynamicResource Year}"
+                             Text="{Binding Song.Album.Year, Mode=TwoWay}"
+                             Style="{DynamicResource FloatingHintTextBox}" />
+
+                    <Button Width="90" 
+                        Style="{DynamicResource GradientBgButton2}"   
+                        Content="{DynamicResource Save}"    
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.SaveCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        HorizontalAlignment="Center" Margin="10"/>
+
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+    </materialDesign:TransitioningContent>
+</Window>
